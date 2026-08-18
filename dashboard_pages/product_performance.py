@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def show():
 
-    st.title("📦 Product Performance Dashboard")
+    st.title(" Product Performance Dashboard")
 
     st.write("""
     Analyze the performance of individual products and categories
@@ -46,19 +46,19 @@ def show():
     col1, col2 = st.columns(2)
     col3, col4 = st.columns(2)
 
-    col1.metric("🏆 Best Selling SKU", best_sku)
+    col1.metric(" Best Selling SKU", best_sku)
 
-    col2.metric("📉 Lowest Selling SKU", worst_sku)
+    col2.metric(" Lowest Selling SKU", worst_sku)
 
-    col3.metric("📦 Total Products", total_products)
+    col3.metric(" Total Products", total_products)
 
-    col4.metric("📊 Average Sales per SKU", round(avg_sales,2))
+    col4.metric(" Average Sales per SKU", round(avg_sales,2))
 
     # ===============================
     # Top 10 Products
     # ===============================
 
-    st.subheader("🔥 Top 10 Products")
+    st.subheader(" Top 10 Products")
 
     fig, ax = plt.subplots(figsize=(10,5))
 
@@ -78,7 +78,7 @@ def show():
     # Bottom 10 Products
     # ===============================
 
-    st.subheader("📉 Bottom 10 Products")
+    st.subheader(" Bottom 10 Products")
 
     fig, ax = plt.subplots(figsize=(10,5))
 
@@ -98,7 +98,7 @@ def show():
     # Category Performance
     # ===============================
 
-    st.subheader("📊 Category Performance")
+    st.subheader(" Category Performance")
 
     category_sales = (
         merged.groupby("category")["units_sold"]
@@ -123,7 +123,7 @@ def show():
     # Category Distribution
     # ===============================
 
-    st.subheader("🥧 Category Sales Distribution")
+    st.subheader(" Category Sales Distribution")
 
     fig, ax = plt.subplots(figsize=(6,6))
 
@@ -140,7 +140,7 @@ def show():
     # Product Performance Table
     # ===============================
 
-    st.subheader("📋 Product Performance Table")
+    st.subheader(" Product Performance Table")
 
     performance = (
         merged.groupby(["sku_id","category"])["units_sold"]
@@ -155,20 +155,20 @@ def show():
     # Business Insights
     # ===============================
 
-    st.subheader("💡 Business Insights")
+    st.subheader(" Business Insights")
 
     st.success(
-        f"🏆 Best Selling Product : {best_sku} ({best_units} units)"
+        f" Best Selling Product : {best_sku} ({best_units} units)"
     )
 
     st.warning(
-        f"📉 Lowest Selling Product : {worst_sku} ({worst_units} units)"
+        f" Lowest Selling Product : {worst_sku} ({worst_units} units)"
     )
 
     st.info(
-        f"📦 Total Products : {total_products}"
+        f" Total Products : {total_products}"
     )
 
     st.info(
-        f"📊 Average Sales per Product : {avg_sales:.2f}"
+        f" Average Sales per Product : {avg_sales:.2f}"
     )
