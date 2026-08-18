@@ -3,7 +3,7 @@ import pandas as pd
 
 def show():
 
-    st.title("💡 Business Recommendations")
+    st.title(" Business Recommendations")
 
     st.write("""
     This page provides inventory and sales recommendations
@@ -40,17 +40,17 @@ def show():
 
     col1, col2, col3 = st.columns(3)
 
-    col1.metric("📦 Total Sales", f"{int(total_sales):,}")
+    col1.metric(" Total Sales", f"{int(total_sales):,}")
 
-    col2.metric("🛒 Total Products", total_skus)
+    col2.metric(" Total Products", total_skus)
 
-    col3.metric("⚠ Total Risk Items", stockout_count + overstock_count)
+    col3.metric(" Total Risk Items", stockout_count + overstock_count)
 
     # ==========================================
     # Risk Summary
     # ==========================================
 
-    st.subheader("📋 Inventory Risk Summary")
+    st.subheader(" Inventory Risk Summary")
 
     summary = pd.DataFrame({
 
@@ -74,7 +74,7 @@ def show():
     # Recommendations
     # ==========================================
 
-    st.subheader("✅ Business Recommendations")
+    st.subheader(" Business Recommendations")
 
     st.success("""
     Increase replenishment frequency for products
@@ -105,7 +105,7 @@ def show():
     # Executive Summary
     # ==========================================
 
-    st.subheader("📊 Executive Summary")
+    st.subheader(" Executive Summary")
 
     st.markdown(f"""
     - **Total Units Sold:** **{int(total_sales):,}**
@@ -132,7 +132,7 @@ def show():
     # ==========================================
 
     st.success("""
-    🎯 Project FORESIGHT enables data-driven inventory planning,
+     Project FORESIGHT enables data-driven inventory planning,
     reduces stockouts, minimizes overstock, and supports
     smarter business decisions through predictive analytics.
     """)
