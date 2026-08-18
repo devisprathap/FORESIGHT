@@ -1,4 +1,4 @@
-# 📊 PROJECT FORESIGHT
+#  PROJECT FORESIGHT
 
 ## Demand Forecasting & Inventory Intelligence
 
@@ -8,7 +8,7 @@ identify stock risks, and provide business recommendations.
 
 ---
 
-## 🎯 Objectives
+##  Objectives
 
 - Analyze historical sales data
 - Understand customer demand
@@ -23,7 +23,7 @@ identify stock risks, and provide business recommendations.
 
 ---
 
-## 📊 Dashboard Pages
+##  Dashboard Pages
 
 The dashboard contains:
 
@@ -41,7 +41,7 @@ The dashboard contains:
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 - Python
 - Pandas
@@ -55,7 +55,7 @@ The dashboard contains:
 
 ---
 
-## 🔄 Project Workflow
+##  Project Workflow
 
 ```text
 Raw Data
