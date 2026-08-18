@@ -1,133 +1,175 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import joblib
+
 
 def show():
 
-    st.title("🤖 Demand Forecast")
+    st.title(" Demand Forecast")
 
-    st.write("""
-    This dashboard predicts future product demand using the trained
-    machine learning forecasting model.
-    """)
+    # Load sales data
+    try:
+        sales = pd.read_csv(
+            "data/processed/feature_engineered_sales.csv"
+        )
+    except Exception as e:
+        st.error("Unable to load sales data.")
+        st.exception(e)
+        return
 
-    # ===============================
-    # Load Data
-    # ===============================
+    st.success("Forecast page loaded successfully.")
 
-    sales = pd.read_csv("data/processed/feature_engineered_sales.csv")
+    st.subheader(" Historical Demand")
 
-    # ===============================
-    # Load Model
-    # ===============================
+    # Find date column
+    date_col = None
 
-    model = joblib.load("models/forecast_model.pkl")
+    for col in ["date", "Date", "ds"]:
+        if col in sales.columns:
+            date_col = col
+            break
 
-    # ===============================
-    # Prepare Features
-    # ===============================
+    # Find demand/sales column
+    value_col = None
 
-    X = sales[["month", "day_of_week", "promo_flag"]]
+    for col in [
+        "units_sold",
+        "quantity",
+        "sales",
+        "demand",
+        "total_sales"
+    ]:
+        if col in sales.columns:
+            value_col = col
+            break
 
-    # ===============================
-    # Forecast
-    # ===============================
+    if date_col is None:
+        st.warning("Date column was not found in the sales dataset.")
+        st.write("Available columns:")
+        st.write(sales.columns.tolist())
+        return
 
-    sales["Predicted Demand"] = model.predict(X)
+    if value_col is None:
+        st.warning("Sales/demand column was not found.")
+        st.write("Available columns:")
+        st.write(sales.columns.tolist())
+        return
 
-    # ===============================
-    # KPI Cards
-    # ===============================
-
-    col1, col2 = st.columns(2)
-
-    col1.metric(
-        "Average Actual Demand",
-        round(sales["units_sold"].mean(), 2)
+    # Convert date
+    sales[date_col] = pd.to_datetime(
+        sales[date_col],
+        errors="coerce"
     )
 
-    col2.metric(
-        "Average Forecast Demand",
-        round(sales["Predicted Demand"].mean(), 2)
+    sales[value_col] = pd.to_numeric(
+        sales[value_col],
+        errors="coerce"
     )
 
-    # ===============================
-    # Actual vs Forecast
-    # ===============================
+    sales = sales.dropna(
+        subset=[date_col, value_col]
+    )
 
-    st.subheader("📈 Actual vs Forecast Demand")
+    # Monthly demand
+    monthly = (
+        sales
+        .set_index(date_col)[value_col]
+        .resample("M")
+        .sum()
+    )
 
-    monthly = sales.groupby("month")[["units_sold","Predicted Demand"]].mean()
+    if monthly.empty:
+        st.warning("No valid sales data available.")
+        return
 
-    fig, ax = plt.subplots(figsize=(10,5))
+    # Chart
+    fig, ax = plt.subplots(figsize=(12, 5))
 
     ax.plot(
         monthly.index,
-        monthly["units_sold"],
-        marker="o",
-        label="Actual"
+        monthly.values,
+        marker="o"
     )
 
-    ax.plot(
-        monthly.index,
-        monthly["Predicted Demand"],
-        marker="s",
-        label="Forecast"
-    )
-
+    ax.set_title("Monthly Demand Trend")
     ax.set_xlabel("Month")
+    ax.set_ylabel("Demand / Sales")
 
-    ax.set_ylabel("Demand")
-
-    ax.legend()
+    plt.xticks(rotation=45)
+    plt.tight_layout()
 
     st.pyplot(fig)
 
-    # ===============================
-    # Forecast Table
-    # ===============================
+    # Simple forecast
+    st.subheader("🔮 Simple Demand Forecast")
 
-    st.subheader("Forecast Results")
+    forecast_months = 3
 
-    st.dataframe(
-        sales[
-            [
-                "date",
-                "sku_id",
-                "units_sold",
-                "Predicted Demand"
-            ]
-        ].head(100)
-    )
+    if len(monthly) >= 3:
 
-    # ===============================
-    # Download Button
-    # ===============================
+        average_demand = monthly.tail(3).mean()
 
-    csv = sales.to_csv(index=False)
+        future_dates = pd.date_range(
+            start=monthly.index[-1] + pd.offsets.MonthEnd(1),
+            periods=forecast_months,
+            freq="M"
+        )
 
-    st.download_button(
-        label="Download Forecast",
-        data=csv,
-        file_name="forecast_results.csv",
-        mime="text/csv"
-    )
+        forecast = pd.Series(
+            average_demand,
+            index=future_dates
+        )
 
-    # ===============================
-    # Business Insights
-    # ===============================
+        forecast_df = pd.DataFrame({
+            "Month": future_dates,
+            "Forecast Demand": forecast.values
+        })
 
-    st.subheader("💡 Forecast Insights")
+        st.dataframe(
+            forecast_df,
+            use_container_width=True
+        )
 
-    if sales["Predicted Demand"].mean() > sales["units_sold"].mean():
+        # Forecast chart
+        fig2, ax2 = plt.subplots(figsize=(12, 5))
 
-        st.success(
-            "Demand is expected to increase. Increase inventory levels."
+        ax2.plot(
+            monthly.index,
+            monthly.values,
+            marker="o",
+            label="Historical"
+        )
+
+        ax2.plot(
+            forecast.index,
+            forecast.values,
+            marker="o",
+            linestyle="--",
+            label="Forecast"
+        )
+
+        ax2.set_title(
+            "Historical Demand and Forecast"
+        )
+
+        ax2.set_xlabel("Month")
+        ax2.set_ylabel("Demand")
+
+        ax2.legend()
+
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+
+        st.pyplot(fig2)
+
+        st.info(
+            "The forecast shown here uses the average demand "
+            "of the most recent three months as a simple baseline."
         )
 
     else:
 
         st.warning(
-            "Demand is expected to decrease. Avoid overstocking."
+            "At least 3 months of historical data are required "
+            "to generate the forecast."
         )
