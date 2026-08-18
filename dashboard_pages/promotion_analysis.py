@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def show():
 
-    st.title("🎯 Promotion Analysis")
+    st.title(" Promotion Analysis")
 
     st.write("""
     Analyze the impact of promotional campaigns on product demand
@@ -32,9 +32,9 @@ def show():
 
     col1, col2 = st.columns(2)
 
-    col1.metric("🎯 Promotion Sales", f"{int(promo_sales):,}")
+    col1.metric(" Promotion Sales", f"{int(promo_sales):,}")
 
-    col2.metric("📦 Non-Promotion Sales", f"{int(nonpromo_sales):,}")
+    col2.metric(" Non-Promotion Sales", f"{int(nonpromo_sales):,}")
 
     col3, col4 = st.columns(2)
 
@@ -46,7 +46,7 @@ def show():
     # Sales Comparison
     # ======================================
 
-    st.subheader("📊 Promotion vs Non-Promotion Sales")
+    st.subheader(" Promotion vs Non-Promotion Sales")
 
     comparison = pd.Series({
         "Promotion": promo_sales,
@@ -65,7 +65,7 @@ def show():
     # Category-wise Promotion Sales
     # ======================================
 
-    st.subheader("📦 Promotion Sales by Category")
+    st.subheader(" Promotion Sales by Category")
 
     category_sales = (
         merged[merged["promo_flag"] == 1]
@@ -87,7 +87,7 @@ def show():
     # Average Demand Comparison
     # ======================================
 
-    st.subheader("📈 Average Demand")
+    st.subheader(" Average Demand")
 
     avg = merged.groupby("promo_flag")["units_sold"].mean()
 
@@ -105,7 +105,7 @@ def show():
     # Promotion Summary Table
     # ======================================
 
-    st.subheader("📋 Promotion Summary")
+    st.subheader(" Promotion Summary")
 
     summary = pd.DataFrame({
 
@@ -131,18 +131,18 @@ def show():
     # Business Insights
     # ======================================
 
-    st.subheader("💡 Business Insights")
+    st.subheader(" Business Insights")
 
     if promo_sales > nonpromo_sales:
 
         st.success(
-            "✅ Promotions generated higher sales than non-promotional periods."
+            " Promotions generated higher sales than non-promotional periods."
         )
 
     else:
 
         st.warning(
-            "⚠ Promotions did not outperform non-promotional sales."
+            " Promotions did not outperform non-promotional sales."
         )
 
     best_category = category_sales.idxmax()
