@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def show():
 
-    st.title("📅 Seasonality Dashboard")
+    st.title(" Seasonality Dashboard")
 
     st.write("""
     This dashboard analyzes seasonal sales trends to identify
@@ -39,15 +39,15 @@ def show():
 
     col1, col2 = st.columns(2)
 
-    col1.metric("🏆 Peak Sales Month", peak_month)
+    col1.metric(" Peak Sales Month", peak_month)
 
-    col2.metric("📉 Lowest Sales Month", low_month)
+    col2.metric(" Lowest Sales Month", low_month)
 
     # ======================================
     # Monthly Sales Trend
     # ======================================
 
-    st.subheader("📈 Monthly Sales Trend")
+    st.subheader(" Monthly Sales Trend")
 
     month_order = [
         "January","February","March","April",
@@ -78,7 +78,7 @@ def show():
     # Weekly Sales
     # ======================================
 
-    st.subheader("📊 Weekly Sales Trend")
+    st.subheader(" Weekly Sales Trend")
 
     weekly_sales = sales.groupby("week")["units_sold"].sum()
 
@@ -98,7 +98,7 @@ def show():
     # Day-wise Sales
     # ======================================
 
-    st.subheader("📅 Day-wise Sales")
+    st.subheader(" Day-wise Sales")
 
     day_order = [
         "Monday","Tuesday","Wednesday",
@@ -127,7 +127,7 @@ def show():
     # Monthly Sales Table
     # ======================================
 
-    st.subheader("📋 Monthly Sales Summary")
+    st.subheader(" Monthly Sales Summary")
 
     summary = monthly_sales.reset_index()
 
@@ -139,14 +139,14 @@ def show():
     # Business Insights
     # ======================================
 
-    st.subheader("💡 Seasonal Insights")
+    st.subheader(" Seasonal Insights")
 
     st.success(
-        f"🏆 Highest demand occurs in **{peak_month}** with **{peak_sales:,} units sold**."
+        f" Highest demand occurs in **{peak_month}** with **{peak_sales:,} units sold**."
     )
 
     st.warning(
-        f"📉 Lowest demand occurs in **{low_month}** with **{low_sales:,} units sold**."
+        f" Lowest demand occurs in **{low_month}** with **{low_sales:,} units sold**."
     )
 
     st.info("""
