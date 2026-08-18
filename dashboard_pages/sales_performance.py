@@ -16,7 +16,7 @@ def show():
     # Dashboard Title
     # ============================================
 
-    st.title("📈 Sales Performance Dashboard")
+    st.title(" Sales Performance Dashboard")
 
     st.write("""
     This dashboard analyzes sales performance over time,
@@ -38,19 +38,19 @@ def show():
     col1, col2 = st.columns(2)
     col3, col4 = st.columns(2)
 
-    col1.metric("📦 Total Units Sold", f"{int(total_sales):,}")
+    col1.metric(" Total Units Sold", f"{int(total_sales):,}")
 
-    col2.metric("📊 Average Daily Sales", f"{avg_daily_sales:.2f}")
+    col2.metric(" Average Daily Sales", f"{avg_daily_sales:.2f}")
 
-    col3.metric("🧾 Total Sales Records", total_transactions)
+    col3.metric(" Total Sales Records", total_transactions)
 
-    col4.metric("🛒 Total Products", total_skus)
+    col4.metric(" Total Products", total_skus)
 
     # ============================================
     # Monthly Sales Trend
     # ============================================
 
-    st.subheader("📅 Monthly Sales Trend")
+    st.subheader(" Monthly Sales Trend")
 
     sales["month"] = sales["date"].dt.month
 
@@ -70,7 +70,7 @@ def show():
     # Weekly Sales Trend
     # ============================================
 
-    st.subheader("📆 Weekly Sales Trend")
+    st.subheader(" Weekly Sales Trend")
 
     sales["week"] = sales["date"].dt.isocalendar().week
 
@@ -90,7 +90,7 @@ def show():
     # Daily Sales Trend
     # ============================================
 
-    st.subheader("📈 Daily Sales Trend")
+    st.subheader(" Daily Sales Trend")
 
     daily_sales = sales.groupby("date")["units_sold"].sum()
 
@@ -114,7 +114,7 @@ def show():
     lowest_month = monthly_sales.idxmin()
     lowest_value = monthly_sales.min()
 
-    st.subheader("🏆 Sales Highlights")
+    st.subheader(" Sales Highlights")
 
     col1, col2 = st.columns(2)
 
@@ -130,7 +130,7 @@ def show():
     # Monthly Sales Table
     # ============================================
 
-    st.subheader("📋 Monthly Sales Summary")
+    st.subheader(" Monthly Sales Summary")
 
     monthly_df = monthly_sales.reset_index()
 
@@ -142,12 +142,12 @@ def show():
     # Business Insights
     # ============================================
 
-    st.subheader("💡 Business Insights")
+    st.subheader(" Business Insights")
 
-    st.success(f"✅ Peak Sales Month : {highest_month}")
+    st.success(f" Peak Sales Month : {highest_month}")
 
-    st.warning(f"📉 Lowest Sales Month : {lowest_month}")
+    st.warning(f" Lowest Sales Month : {lowest_month}")
 
-    st.info(f"📦 Total Units Sold : {total_sales:,}")
+    st.info(f" Total Units Sold : {total_sales:,}")
 
-    st.info(f"📊 Average Daily Sales : {avg_daily_sales:.2f}")
+    st.info(f" Average Daily Sales : {avg_daily_sales:.2f}")
