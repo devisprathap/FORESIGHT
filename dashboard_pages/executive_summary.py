@@ -4,7 +4,7 @@ import pandas as pd
 
 def show():
 
-    st.title("📋 Executive Summary")
+    st.title(" Executive Summary")
 
     try:
         sales = pd.read_csv(
@@ -26,7 +26,7 @@ def show():
 
     st.success("Executive Summary loaded successfully!")
 
-    st.subheader("📊 Key Business Metrics")
+    st.subheader(" Key Business Metrics")
 
     col1, col2, col3 = st.columns(3)
 
@@ -47,21 +47,21 @@ def show():
 
     st.divider()
 
-    st.subheader("📈 Sales Data Preview")
+    st.subheader(" Sales Data Preview")
 
     st.dataframe(
         sales.head(10),
         use_container_width=True
     )
 
-    st.subheader("🏬 Inventory Data Preview")
+    st.subheader(" Inventory Data Preview")
 
     st.dataframe(
         inventory.head(10),
         use_container_width=True
     )
 
-    st.subheader("⚠️ Risk Data Preview")
+    st.subheader(" Risk Data Preview")
 
     st.dataframe(
         risk.head(10),
