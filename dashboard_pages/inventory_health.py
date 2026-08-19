@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def show():
 
-    st.title("🏬 Inventory Health Dashboard")
+    st.title(" Inventory Health Dashboard")
 
     st.write("""
     This dashboard provides insights into the current inventory status,
@@ -37,23 +37,23 @@ def show():
 
     col1, col2, col3 = st.columns(3)
 
-    col1.metric("📦 Total Inventory", f"{int(total_inventory):,}")
+    col1.metric(" Total Inventory", f"{int(total_inventory):,}")
 
-    col2.metric("📊 Average Inventory", f"{average_inventory:.2f}")
+    col2.metric(" Average Inventory", f"{average_inventory:.2f}")
 
-    col3.metric("🛒 Total SKUs", total_skus)
+    col3.metric(" Total SKUs", total_skus)
 
     col4, col5 = st.columns(2)
 
-    col4.metric("🔴 Low Stock Items", low_stock)
+    col4.metric(" Low Stock Items", low_stock)
 
-    col5.metric("🟢 High Stock Items", high_stock)
+    col5.metric(" High Stock Items", high_stock)
 
     # ==========================================
     # Inventory by Category
     # ==========================================
 
-    st.subheader("📊 Inventory by Category")
+    st.subheader(" Inventory by Category")
 
     category_inventory = (
         merged.groupby("category")["on_hand_units"]
@@ -74,7 +74,7 @@ def show():
     # Top 10 Inventory SKUs
     # ==========================================
 
-    st.subheader("🏆 Top 10 Inventory SKUs")
+    st.subheader(" Top 10 Inventory SKUs")
 
     top_inventory = (
         merged.groupby("sku_id")["on_hand_units"]
@@ -98,7 +98,7 @@ def show():
     # Inventory Distribution
     # ==========================================
 
-    st.subheader("🥧 Inventory Distribution")
+    st.subheader(" Inventory Distribution")
 
     fig, ax = plt.subplots(figsize=(6,6))
 
@@ -117,7 +117,7 @@ def show():
     # Inventory Summary Table
     # ==========================================
 
-    st.subheader("📋 Inventory Summary")
+    st.subheader(" Inventory Summary")
 
     summary = pd.DataFrame({
 
@@ -145,16 +145,16 @@ def show():
     # Business Insights
     # ==========================================
 
-    st.subheader("💡 Business Insights")
+    st.subheader(" Business Insights")
 
     highest_category = category_inventory.idxmax()
 
     lowest_category = category_inventory.idxmin()
 
-    st.success(f"✅ Highest Inventory Category : {highest_category}")
+    st.success(f" Highest Inventory Category : {highest_category}")
 
-    st.warning(f"📉 Lowest Inventory Category : {lowest_category}")
+    st.warning(f" Lowest Inventory Category : {lowest_category}")
 
-    st.info(f"🔴 Low Stock Items : {low_stock}")
+    st.info(f" Low Stock Items : {low_stock}")
 
-    st.info(f"🟢 High Stock Items : {high_stock}")
+    st.info(f" High Stock Items : {high_stock}")

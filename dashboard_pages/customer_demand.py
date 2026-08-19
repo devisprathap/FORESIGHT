@@ -13,7 +13,7 @@ def show():
     # Merge datasets
     merged = sales.merge(sku, on="sku_id")
 
-    st.title("🛒 Customer Demand Analysis")
+    st.title(" Customer Demand Analysis")
 
     st.write(
         """
@@ -26,7 +26,7 @@ def show():
     # Top 10 Products
     # =====================================
 
-    st.subheader("🔥 Top 10 Most Demanded Products")
+    st.subheader(" Top 10 Most Demanded Products")
 
     top_products = (
         merged.groupby("sku_id")["units_sold"]
@@ -51,7 +51,7 @@ def show():
     # Bottom 10 Products
     # =====================================
 
-    st.subheader("📉 Bottom 10 Products")
+    st.subheader(" Bottom 10 Products")
 
     bottom_products = (
         merged.groupby("sku_id")["units_sold"]
@@ -76,7 +76,7 @@ def show():
     # Category-wise Demand
     # =====================================
 
-    st.subheader("📦 Category-wise Demand")
+    st.subheader(" Category-wise Demand")
 
     category_demand = (
         merged.groupby("category")["units_sold"]
@@ -99,7 +99,7 @@ def show():
     # Pie Chart
     # =====================================
 
-    st.subheader("🥧 Demand Share by Category")
+    st.subheader(" Demand Share by Category")
 
     fig, ax = plt.subplots(figsize=(6,6))
 
@@ -118,7 +118,7 @@ def show():
     # Demand Summary
     # =====================================
 
-    st.subheader("📋 Customer Demand Summary")
+    st.subheader(" Customer Demand Summary")
 
     total_units = merged["units_sold"].sum()
 
@@ -150,10 +150,10 @@ def show():
     # Business Insights
     # =====================================
 
-    st.subheader("💡 Business Insights")
+    st.subheader(" Business Insights")
 
-    st.success(f"✅ Highest Demand Category : {best_category}")
+    st.success(f" Highest Demand Category : {best_category}")
 
-    st.warning(f"📉 Lowest Demand Category : {worst_category}")
+    st.warning(f" Lowest Demand Category : {worst_category}")
 
-    st.info(f"📦 Total Units Sold : {total_units:,}")
+    st.info(f" Total Units Sold : {total_units:,}")

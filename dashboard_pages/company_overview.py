@@ -15,7 +15,7 @@ def show():
     # -----------------------------
     # Dashboard Title
     # -----------------------------
-    st.title("🏢 Company Overview")
+    st.title(" Company Overview")
 
     st.write(
         """
@@ -46,24 +46,24 @@ def show():
     # -----------------------------
     col1, col2, col3 = st.columns(3)
 
-    col1.metric("📦 Total Units Sold", f"{total_units:,}")
+    col1.metric(" Total Units Sold", f"{total_units:,}")
 
-    col2.metric("🛒 Total SKUs", total_skus)
+    col2.metric(" Total SKUs", total_skus)
 
-    col3.metric("📂 Categories", total_categories)
+    col3.metric(" Categories", total_categories)
 
     col4, col5, col6 = st.columns(3)
 
-    col4.metric("🏬 Inventory Units", f"{total_inventory:,}")
+    col4.metric(" Inventory Units", f"{total_inventory:,}")
 
-    col5.metric("⚠ Stockout Risk", stockout)
+    col5.metric(" Stockout Risk", stockout)
 
-    col6.metric("🟡 Overstock", overstock)
+    col6.metric(" Overstock", overstock)
 
     # -----------------------------
     # Sales by Category
     # -----------------------------
-    st.subheader("📊 Sales by Category")
+    st.subheader(" Sales by Category")
 
     merged = sales.merge(sku, on="sku_id")
 
@@ -82,7 +82,7 @@ def show():
     # -----------------------------
     # Business Snapshot
     # -----------------------------
-    st.subheader("📋 Business Snapshot")
+    st.subheader(" Business Snapshot")
 
     snapshot = pd.DataFrame({
 
@@ -111,14 +111,14 @@ def show():
     # -----------------------------
     # Business Highlights
     # -----------------------------
-    st.subheader("💡 Business Highlights")
+    st.subheader(" Business Highlights")
 
     best_category = category_sales.idxmax()
 
-    st.success(f"✅ Best Selling Category : {best_category}")
+    st.success(f" Best Selling Category : {best_category}")
 
-    st.info(f"📦 Total Inventory Units : {total_inventory:,}")
+    st.info(f" Total Inventory Units : {total_inventory:,}")
 
-    st.warning(f"⚠ Stockout Risks : {stockout}")
+    st.warning(f" Stockout Risks : {stockout}")
 
-    st.error(f"🟡 Overstock Items : {overstock}")
+    st.error(f" Overstock Items : {overstock}")

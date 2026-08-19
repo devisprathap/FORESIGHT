@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def show():
 
-    st.title("⚠️ Stock Risk Dashboard")
+    st.title(" Stock Risk Dashboard")
 
     st.write("""
     Analyze products that are at risk of stockout or overstock
@@ -33,16 +33,16 @@ def show():
     col1, col2 = st.columns(2)
     col3, col4 = st.columns(2)
 
-    col1.metric("⚠️ Stockout Risk", stockout)
-    col2.metric("📦 Overstock", overstock)
-    col3.metric("✅ Healthy Products", healthy)
-    col4.metric("🛒 Total Products", total_products)
+    col1.metric(" Stockout Risk", stockout)
+    col2.metric(" Overstock", overstock)
+    col3.metric(" Healthy Products", healthy)
+    col4.metric(" Total Products", total_products)
 
     # ======================================
     # Risk Distribution
     # ======================================
 
-    st.subheader("📊 Risk Distribution")
+    st.subheader(" Risk Distribution")
 
     risk_counts = merged["risk_status"].value_counts()
 
@@ -63,7 +63,7 @@ def show():
     # Risk Percentage
     # ======================================
 
-    st.subheader("🥧 Risk Percentage")
+    st.subheader(" Risk Percentage")
 
     fig, ax = plt.subplots(figsize=(6,6))
 
@@ -80,7 +80,7 @@ def show():
     # Category-wise Risk
     # ======================================
 
-    st.subheader("📦 Risk by Category")
+    st.subheader(" Risk by Category")
 
     category_risk = (
         merged.groupby(["category", "risk_status"])
@@ -103,7 +103,7 @@ def show():
     # Detailed Risk Report
     # ======================================
 
-    st.subheader("📋 Detailed Risk Report")
+    st.subheader(" Detailed Risk Report")
 
     st.dataframe(
         merged.sort_values("risk_status")
@@ -113,21 +113,21 @@ def show():
     # Recommendations
     # ======================================
 
-    st.subheader("💡 Recommendations")
+    st.subheader(" Recommendations")
 
     if stockout > 0:
         st.error(
-            f"⚠️ {stockout} products are at Stockout Risk. Replenishment is recommended."
+            f" {stockout} products are at Stockout Risk. Replenishment is recommended."
         )
 
     if overstock > 0:
         st.warning(
-            f"📦 {overstock} products are Overstocked. Consider promotions or discounts."
+            f" {overstock} products are Overstocked. Consider promotions or discounts."
         )
 
     if healthy > 0:
         st.success(
-            f"✅ {healthy} products currently have healthy inventory levels."
+            f" {healthy} products currently have healthy inventory levels."
         )
 
     st.info("""
